@@ -1,0 +1,38 @@
+-- source: http://opensourcedbms.com/dbms/psqlrc-psql-startup-file-for-postgres/
+\echo
+\echo 'Administrative queries:\n'
+\echo '\t:aliases\t-- show all aliases'
+\echo '\t:settings\t-- Server settings'
+\echo '\t:conninfo\t-- Server connections'
+\echo '\t:activity\t-- Server activity'
+\echo '\t:locks\t\t-- Lock info'
+\echo '\t:waits\t\t-- Waiting queries'
+\echo '\t:dbsize\t\t-- Database size'
+\echo '\t:tablesize\t-- Tables size'
+\echo '\t:uselesscol\t-- Useless columns'
+\echo '\t:rtsize\t\t-- Relational table sizes'
+\echo '\t:tsize\t\t-- Table sizes (alternate)'
+\echo '\t:uptime\t\t-- Server uptime'
+\echo '\t:sp\t\t-- Search path'
+\echo '\t:clear\t\t-- Clear the terminal screen'
+\echo '\t:ll\t\t-- List the contents of the current directory'
+--\echo '\t:menu\t\t-- Help Menu'
+\echo '\t\\h\t\t-- Help with SQL commands'
+\echo '\t\\?\t\t-- Help with psql commands'
+
+\set aliases    '\\i ~/.psqlrc'
+\set settings   'SELECT name, setting,unit,context FROM pg_settings'
+\set locks      `cat ~/.psqlrc-aliases/admin/locks.sql`
+\set conninfo   'SELECT usename, count(*) FROM pg_stat_activity GROUP BY usename;'
+\set activity   `cat ~/.psqlrc-aliases/admin/activity.sql`
+\set waits      `cat ~/.psqlrc-aliases/admin/waits.sql`
+\set dbsize     `cat ~/.psqlrc-aliases/admin/dbsize.sql`
+\set tablesize  `cat ~/.psqlrc-aliases/admin/tablesize.sql`
+\set uselesscol `cat ~/.psqlrc-aliases/admin/uselesscol.sql`
+-- rtsize and tsize source: https://gist.github.com/pivaldi/4054440
+\set rtsize     `cat ~/.psqlrc-aliases/admin/rtsize.sql`
+\set tsize      `cat ~/.psqlrc-aliases/admin/tsize.sql`
+\set uptime     'SELECT now() - pg_postmaster_start_time() AS uptime;'
+\set sp         'SHOW search_path;'
+\set clear      '\\! clear;'
+\set ll         '\\! ls -lrt;'
