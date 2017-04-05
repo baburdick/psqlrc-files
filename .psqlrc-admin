@@ -14,6 +14,7 @@
 \echo '\t:tsize\t\t-- Table sizes (alternate)'
 \echo '\t:uptime\t\t-- Server uptime'
 \echo '\t:sp\t\t-- Search path'
+\echo '\t:enums\t\t-- All the enumerated types'
 \echo '\t:clear\t\t-- Clear the terminal screen'
 \echo '\t:ll\t\t-- List the contents of the current directory'
 --\echo '\t:menu\t\t-- Help Menu'
@@ -34,5 +35,6 @@
 \set tsize      `cat ~/.psqlrc-aliases/admin/tsize.sql`
 \set uptime     'SELECT now() - pg_postmaster_start_time() AS uptime;'
 \set sp         'SHOW search_path;'
+\set enums      `cat ~/.psqlrc-aliases/admin/enums.sql`
 \set clear      '\\! clear;'
 \set ll         '\\! ls -lrt;'
