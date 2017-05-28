@@ -1,32 +1,42 @@
--- prevent noisy loading of psqlrc file
+-- Prevent noisy loading of psqlrc file
 \set QUIET yes
 
---customize prompt
+-- Customize prompt
 -- http://i-dba.blogspot.se/2014/02/colorizing-psql-prompt-guide.html
 -- %m -> short hostname; %M -> full hostname
 \set PROMPT1 '\n%[%033[1;31m%]➤ %[%033[2;37m%]%`\! date "+%F %I:%M %p %Z"`%[%033[0m%] %[%033[1;36m%]%n%[%033[34m%]@%[%033[1;36m%]%M:%>%[%033[1;33m%]/%/ %[%033[1;31m%]%x %[%033[K%]%[%033[0m%]\n%[%033[1;33m%]%R%#%[%033[0m%] '
 \set PROMPT2 '%[%033[1;33m%]%R%#%[%033[0m%] '
--- consider: http://petereisentraut.blogspot.com/2009/09/how-to-set-xterm-titles-in-psql.html
+-- Consider: http://petereisentraut.blogspot.com/2009/09/how-to-set-xterm-titles-in-psql.html
 
 --host/db specific history files
 \set HISTFILE ~/.psql_history- :HOST - :DBNAME
 
---show timing info for queries
+-- Show timing info for queries
 \timing
 
---pager settings to support color
+-- Pager settings to support color
 \pset pager always
 
--- allow pasting of values to avoid stupid indenting
+-- Allow pasting of values to avoid stupid indenting
 \set paste
 
---get rid of duplicates in history
+-- Get rid of duplicates in history
 \set HISTCONTROL ignoredups
 
---set noisyness back to normal
+-- Protect against results floods
+--\set FETCH_COUNT 1000
+
+-- Automatically upcase keywords (works only intermittently)
+--\set COMP_KEYWORD_CASE upper
+
+-- Show NULLs as: [NULL]
+--\pset null '[NULL]'
+
+-- Set noisyness back to normal
 \unset QUIET
 
 -- How to add multiline aliases:
 -- \set some_alias `cat ~/.psqlrc-aliases/some_client/some_alias.sql`
 
+-- Useful only in interactive mode. Add custom alias sets below.
 \ir .psqlrc-admin
